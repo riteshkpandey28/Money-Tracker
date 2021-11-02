@@ -7,9 +7,8 @@ from io import BytesIO
 import datetime
 
 app = Flask(__name__)
-app.secret_key = 'ritesh'
-database = 'postgres://mwqyuwvrozskmc:44bd87c09be6dc0e669d5d2006a773a1e47008be3d22bd03f3d33e2decc13cb6@ec2-3-212-75-25.compute-1.amazonaws.com:5432/d9ovt6uhtejm8c'
-
+app.secret_key = ''
+database = ''
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
