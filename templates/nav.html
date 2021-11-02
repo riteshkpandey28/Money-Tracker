@@ -1,0 +1,116 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Jquery -->
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+
+
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner">
+
+            <div class="profile">
+                {% for rs in rs %}
+
+                <img src="/profile{{rs[0]}}" alt="Image" class="img-fluid">
+                <h3 class="name">{{rs[1]}} {{rs[2]}}</h3>
+                <span class="country">{{rs[3]}}</span>
+
+                {% endfor %}
+            </div>
+
+            <div class="counter d-flex justify-content-center">
+
+                <div class="col">
+                    {% for rs in totalincome %}
+                    <strong class="number"><span class="icon-rupee"></span>{{rs[0]}}</strong>
+                    <span class="number-label">Total Income</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {% for rs in totalexpense %}
+                    <strong class="number"><span class="icon-rupee"></span>{{rs[0]}}</strong>
+                    <span class="number-label">Total Expense</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="nav-menu">
+                <ul>
+                    <li {% if request.path=='/home' %}class="active" {% endif %}><a href="/home"><span
+                                class="icon-user mr-3"></span>Profile</a></li>
+                    <li {% if request.path=='/income' %}class="active" {% endif %}><a href="/income"><span
+                                class="icon-money mr-3"></span>Income</a></li>
+                    <li {% if request.path=='/expense' %}class="active" {% endif %}><a href="/expense"><span
+                                class="icon-remove_shopping_cart mr-3"></span>Expense</a></li>
+                    <li {% if request.path=='/stats' %}class="active" {% endif %}><a href="/stats"><span
+                                class="icon-pie-chart mr-3"></span>Stats</a></li>
+                    <li><a href="/logout"><span class="icon-sign-out mr-3"></span>Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+
+
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <script>
+        $("#myform").validate({
+            rules: {
+                chpassword: {
+                    equalTo: "#password"
+                },
+                phone: {
+                    minlength: 10,
+                    maxlength: 10
+                }
+            },
+            messages: {
+                password: {
+                    required: "Please enter a password"
+                },
+                chpassword: {
+                    required: "Please enter a password",
+                    equalTo: "Wrong Password"
+                },
+                phone: {
+                    required: "Please enter a 10 digit phone number"
+                }
+            }
+        });
+    </script>
+
+</body>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" sizes="16x16">
+    <title>Money Tracker - Home</title>
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Header -->
+                <header id="header">
+                    <a href="#" class="logo"><strong>Money</strong> Tracker</a>
+                </header>
+
+                <!-- Banner -->
+                <section id="banner">
+                    {% for rs in rs %}
+                    <div class=" content">
+
+                        <header>
+                            <h1>Profile</h1>
+                            {% with messages = get_flashed_messages(category_filter=["profile"]) %}
+                            {% if messages %}
+                            {% for msg in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{msg}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    style="height: 23px;">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </header>
+
+                        <form method="POST" enctype="multipart/form-data" id="myform">
+                            <div class="row gtr-uniform">
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="demo-name">First Name</label>
+                                    <input type="text" name="demo-name" id="demo-name" placeholder="{{rs[1]}}"
+                                        readonly />
+                                </div>
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="demo-lname">Last Name</label>
+                                    <input type="text" name="demo-lname" id="demo-email" placeholder="{{rs[2]}}"
+                                        readonly />
+                                </div>
+                                <!-- Break -->
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" name="phone" id="demo-name" value="{{rs[6]}}" />
+                                </div>
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="demo-email">Email</label>
+                                    <input type="email" name="demo-email" id="demo-email" placeholder="{{rs[3]}}"
+                                        readonly />
+                                </div>
+                                <!-- Break -->
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="password">Change Password</label>
+                                    <input type="password" name="password" id="password" value="" />
+                                </div>
+                                <div class="col-6 col-12-xsmall">
+                                    <label for="chpassword">Confirm New Password</label>
+                                    <input type="password" name="chpassword" id="chpassword" value="" />
+                                </div>
+                                <div class="col-12">
+                                    <label for="pic">Change Profile Picture</label>
+                                    <input type="file" accept="image/*" name="pic" id="pic"
+                                        style="border: none; margin-left: 5px;" />
+                                </div>
+                                <!-- Break -->
+                                <div class="col-12">
+                                    <ul class="actions">
+                                        <li><input type="reset" value="Reset" /></li>
+                                        <li><input type="submit" value="Save Changes" class="primary" /></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <span class="image object">
+                        <img src="/profile{{rs[0]}}" alt="" />
+                    </span>
+                    {% endfor %}
+                </section>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

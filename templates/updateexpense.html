@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" sizes="16x16">
+    <title>Money Tracker - Update expense</title>
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Header -->
+                <header id="header">
+                    <a href="#" class="logo"><strong>Money</strong> Tracker</a>
+                </header>
+
+                <!-- Banner -->
+                <section id="banner">
+                    <div class=" content">
+
+                        <header>
+                            <h1>Update expense</h1>
+                        </header>
+
+                        <form method="POST" enctype="multipart/form-data" id="myform">
+
+                            <div class="gtr-uniform">
+
+                                <div class="col-12">
+                                    <label for="source">Money Spent on</label>
+                                    <input type="text" name="source" id="source" value="{{r[2]}}" />
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="money">Amount spend (in INR)</label>
+                                    <input type="tel" name="money" id="money" value="{{r[3]}}" />
+                                </div>
+
+                                <br>
+
+                                <div class="col-12">
+                                    <label for="date">Date</label>
+                                    <input type="date" name="date" id="date" style="margin-left: 10px;"
+                                        value="{{r[6]}}" />
+                                </div>
+
+                                <br>
+
+                                <div class="col-12">
+                                    <ul class="actions">
+                                        <li><input type="reset" value="Reset" /></li>
+                                        <li><input type="submit" value="Save Changes" class="primary" /></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="content">
+
+                        <header>
+                            <h1 class="tabletext">Last 5 expense</h1>
+                        </header>
+
+                        <table class="table table-responsive text-center">
+                            <thead class="bg-primary">
+                                <tr class="primary">
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Spent on</th>
+                                    <th scope="col">Amount spend</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rs in expense %}
+                                <tr>
+                                    <td>{{loop.index}}</td>
+                                    <td>{{rs[2]}}</td>
+                                    <td>{{rs[3]}}</td>
+                                    <td>{{rs[4]}}</td>
+                                    <td><a href="/updateexpense{{rs[0]}}" class="btn btn-warning">Update</a>
+                                    </td>
+                                    <td><a href="/deleteexpense{{rs[0]}}" class="btn btn-danger">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<style>
+    @media screen and (max-width: 500px) {
+        #wrapper {
+            margin-left: 0;
+            max-width: 400px;
+            padding-right: 0;
+        }
+
+        .table,
+        .tabletext {
+            display: none;
+        }
+    }
+</style>
+
+</html>

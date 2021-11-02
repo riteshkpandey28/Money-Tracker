@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" sizes="16x16">
+    <title>Money Tracker - Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Jquery -->
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+</head>
+
+<body class="form-v4">
+    <div class="page-content">
+
+        <div class="form-v4-content">
+            <div class="form-left">
+                <h2>WELCOME BACK !!</h2>
+                <p class="text-1">Track your income and expense. Visualize and compare them to maximize your savings and
+                    be financially stable</p>
+                <p class="text-2">In case of any issue, feel free to contact <br>
+                    <span>Contact:</span> <a href="mailto:stupiloids.coder@gmail.com">stupiloids.coder@gmail.com</a>
+                </p>
+                <div class="form-left-last">
+                    <p>New to the System ?</p>
+                    <a type="submit" name="account" class="account" href="/register">Create An Account</a>
+                </div>
+            </div>
+            <form class="form-detail" action="/" method="POST" id="myform">
+                {% with messages = get_flashed_messages(category_filter=["invalid"]) %}
+                {% if messages %}
+                {% for msg in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h2>MONEY TRACKER - LOGIN</h2>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="input-text" required
+                        pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+                </div>
+                <div class="form-row">
+                    <div class="form-row form-row-1 ">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="input-text" required>
+                    </div>
+                </div>
+                <div class="form-row-last">
+                    <input type="submit" name="register" class="register" value="Sign In">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        $("#myform").validate({
+            messages: {
+                email: {
+                    required: "Please enter a valid email"
+                },
+                password: {
+                    required: "Please enter your password"
+                }
+            }
+        });
+    </script>
+
+    <style>
+        a {
+            color: white;
+        }
+
+        a:hover {
+            color: red;
+        }
+    </style>
+</body>
+
+</html>

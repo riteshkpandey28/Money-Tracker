@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" sizes="16x16">
+    <title>Money Tracker - Stats</title>
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Header -->
+                <header id="header">
+                    <a href="#" class="logo"><strong>Money</strong> Tracker</a>
+                </header>
+
+                {% with messages = get_flashed_messages(category_filter=["profit"]) %}
+                {% if messages %}
+                {% for msg in messages %}
+                <h1 class="text-center"><span class="icon-arrow-up"></span> Current Status
+                    <span class="icon-arrow-up"></span>
+                </h1>
+                <h2 class="text-center">Average weekly savings of <span class="icon-rupee"></span> {{msg |
+                    round(3)}} </h2>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                {% with messages = get_flashed_messages(category_filter=["loss"]) %}
+                {% if messages %}
+                {% for msg in messages %}
+                <h1 class="text-center"><span class="icon-arrow-down"></span> Current Status
+                    <span class="icon-arrow-down"></span>
+                </h1>
+                <h2 class="text-center">Average weekly loan of <span class="icon-rupee"></span> {{msg | round(3)}}
+                </h2>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                {% with messages = get_flashed_messages(category_filter=["neutral"]) %}
+                {% if messages %}
+                {% for msg in messages %}
+                <h1 class="text-center"><span class="icon-minus"></span> Current Status
+                    <span class="icon-minus"></span>
+                </h1>
+                <h2 class="text-center">No Saving | No Loan | Perfectly Balanced</h2>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <!-- Banner -->
+                <section id="banner" style="padding-top: 0; padding-bottom: 0;" class="graph">
+                    <div class="col-lg-12 py-5 col-md-12 col-12">
+                        <canvas id="stats" width="900" height="300"></canvas>
+                    </div>
+                </section>
+
+                <section id="banner" style="padding-top: 0; padding-bottom: 0;">
+                    <div class="col-lg-12 py-5 col-md-12 col-12">
+                        <canvas id="mobilestats" style="width: 250px; height: 350px;"></canvas>
+                    </div>
+                </section>
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+<script>
+    var ctx = document.getElementById("stats").getContext("2d");
+    var mobile = document.getElementById("mobilestats").getContext("2d");
+
+    var data = {
+        labels: {{ labels | safe }},
+    datasets: [
+        {
+            label: "Average Income",
+            data: {{ values | safe }},
+        fill: true,
+        backgroundColor: '#73f12a'
+            },
+        {
+            label: "Average Expense",
+            data: {{ expensevalues | safe }},
+        fill: true,
+        backgroundColor: '#ec4223'
+            }
+    ]              
+    }
+
+    var chart = new Chart(ctx, {
+        type: "bar",
+        data: data,
+        options: {
+            barValueSpacing: 20,
+            reponsive: true,
+        }
+    });
+    var chart = new Chart(mobile, {
+        type: "bar",
+        data: data,
+        options: {
+            barValueSpacing: 20,
+            reponsive: false,
+        }
+    });
+
+
+    if (screen.width < 500) {
+        document.getElementById("stats").style.display = "none";
+    }
+    else {
+        document.getElementById("mobilestats").style.display = "none";
+    }
+</script>
+
+<style>
+    @media screen and (max-width: 500px) {
+        h1 {
+            font-size: medium;
+        }
+
+        .graph {
+            display: none;
+        }
+    }
+</style>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" sizes="16x16">
+	<title>Money Tracker - Registration</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<!-- Jquery -->
+	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+	<!-- Icon Style -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+		integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+</head>
+
+<body class="form-v4">
+	<div class="page-content">
+		<div class="form-v4-content">
+			<div class="form-left">
+				<h2>ABOUT</h2>
+				<p class="text-1">Money Tracker is Web based Application developed to help one track his/her income as
+					well as expense. Money Tracker takes the data from the user and helps the user to efficiently manage
+					his/her finance. This system also helps the user to visualize his/her financial status with the help
+					of a graph.</p>
+				<span>Key Features:</span>
+				<ul>
+					<li>User Friendly</li>
+					<li>Day wise tracking</li>
+					<li>Ample Visualization of financial status</li>
+					<li>Secure</li>
+				</ul>
+
+				<span>Developed by:</span> <br>
+				<a href="https://ritesh28-portfolio-v2.herokuapp.com/" target="blank">Ritesh Kumar Pandey</a> <br>
+				<div class="icons">
+					<a href="mailto:stupiloids.coder@gmail.com">
+						<i class="far fa-envelope fa-2x"></i>
+					</a>
+					<a href="https://api.whatsapp.com/send?phone=+919082407433" target="blank"> <i
+							class="fab fa-whatsapp fa-2x"></i> </a>
+					<a href="https://www.instagram.com/riteshp_28/" target="blank">
+						<i class="fab fa-instagram fa-2x"></i>
+					</a>
+				</div>
+				</p> <br>
+
+				<div class="form-left-last">
+					<a type="submit" name="account" class="account" href="/">Already have an Account ?</a>
+				</div>
+			</div>
+			<form class="form-detail" action="/register" method="POST" id="myform" enctype="multipart/form-data">
+				{% with messages = get_flashed_messages(category_filter=["validemail"]) %}
+				{% if messages %}
+				{% for msg in messages %}
+				<div class="alert alert-danger" role="alert" style="padding-right: 0;">
+					{{msg}}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
+				{% with messages = get_flashed_messages(category_filter=["register"]) %}
+				{% if messages %}
+				{% for msg in messages %}
+				<div class="alert alert-success" role="alert" style="padding-right: 0;">
+					{{msg}}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
+
+				<h2>MONEY TRACKER - REGISTER FORM</h2>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<label for="first_name">First Name</label>
+						<input type="text" name="first_name" id="first_name" class="input-text" required>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="last_name">Last Name</label>
+						<input type="text" name="last_name" id="last_name" class="input-text" required>
+					</div>
+				</div>
+				<div class="form-row">
+					<label for="email">Email</label>
+					<input type="text" name="email" id="email" class="input-text" required
+						pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1 ">
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" class="input-text" required>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="comfirm-password">Comfirm Password</label>
+						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text"
+							required>
+					</div>
+				</div>
+				<div class="form-row">
+					<label for="profile">Profile Picture</label>
+					<input type="file" accept="image/*" name="profile" id="profile" class="input-text" required>
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="register" class="register" value="Register">
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script>
+		$("#myform").validate({
+			rules: {
+				password: "required",
+				comfirm_password: {
+					equalTo: "#password"
+				}
+			},
+			messages: {
+				first_name: {
+					required: "Please enter a firstname"
+				},
+				last_name: {
+					required: "Please enter a lastname"
+				},
+				email: {
+					required: "Please enter a valid email"
+				},
+				password: {
+					required: "Please enter a password"
+				},
+				comfirm_password: {
+					required: "Please enter a password",
+					equalTo: "Wrong Password"
+				}
+			}
+		});
+	</script>
+</body>
+
+<style>
+	a {
+		padding: 0.4rem;
+		color: white;
+	}
+
+	a:hover {
+		color: red;
+		transition: all 0.5s ease-out;
+	}
+</style>
+
+</html>
